@@ -5,11 +5,14 @@ $database_url = getenv("DATABASE_URL");
 
 if ($database_url) {
     $url = parse_url($database_url);
+}
+
+if (isset($url) && is_array($url) && isset($url["host"])) {
     $host = $url["host"];
     $port = $url["port"] ?? 5432;
-    $user = $url["user"];
-    $password = $url["pass"];
-    $dbname = ltrim($url["path"], "/");
+    $user = $url["user"] ?? "postgres"; // Fallback por si acaso
+    $password = $url["pass"] ?? "";     // Fallback por si acaso
+    $dbname = ltrim($url["path"] ?? "/sistema_nomina", "/");
 } else {
     // Si no hay DATABASE_URL, busca variables individuales
     $host = getenv('DB_HOST') ?: "localhost";
