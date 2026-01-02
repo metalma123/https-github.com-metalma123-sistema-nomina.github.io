@@ -1,0 +1,8 @@
+# EJEMPLO DE VARIABLES DE ENTORNO PARA RENDER.COM
+# Copia estos VALORES (no el archivo) a la sección "Environment Variables" de Render.
+
+DB_HOST=dpg-xxxxxx-a.oregon-postgres.render.com  (El host externo que te da Render)
+DB_PORT=5432
+DB_NAME=sistema_nomina_db (El nombre que le pusiste a tu base de datos en Render)
+DB_USER=sistema_user (El usuario que te da Render)
+DB_PASSWORD=xxxxxxxxxxxx (La contraseña larguísima que te da Render)

@@ -1,0 +1,91 @@
+/* Estilo del cuerpo y fondo con degradado animado */
+body {
+    font-family: sans-serif;
+    background: linear-gradient(135deg, #000000, #1a1a1a, #000000);
+    /* Puedes añadir una animación si quieres un efecto dinámico */
+    /* animation: backgroundAnimation 15s ease infinite; */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Animación opcional para el fondo degradado */
+/* @keyframes backgroundAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+} */
+
+/* Contenedor tipo tarjeta (Glassmorphism) */
+.login-container {
+    background: rgba(255, 255, 255, 0.05);
+    /* Fondo semitransparente */
+    backdrop-filter: blur(10px);
+    /* El efecto de cristal esmerilado */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Borde claro */
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    /* Sombra para profundidad */
+    width: 350px;
+    text-align: center;
+    /* Efecto de borde con brillo neon (opcional, si quieres el extra) */
+    /* box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    text-align: left;
+    margin-bottom: 5px;
+    color: #aaa;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #00ffcc;
+    /* Brillo al enfocar */
+}
+
+button {
+    background: linear-gradient(90deg, #00ffcc, #0099ff);
+    /* Degradado en el botón */
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4);
+    /* Sombra brillante al pasar el mouse */
+}
