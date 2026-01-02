@@ -1,5 +1,11 @@
-
-<?php include('../php/consulta_logica.php'); ?>
+<?php
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: index.html");
+    exit();
+}
+include('../php/consulta_logica.php'); 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
