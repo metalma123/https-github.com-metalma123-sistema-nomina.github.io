@@ -1,11 +1,23 @@
 <?php
 // Configuración de la base de datos
-// Intenta leer de variables de entorno (Render), si no hay, usa valores locales (XAMPP)
-$host = getenv('DB_HOST') ?: "localhost";
-$port = getenv('DB_PORT') ?: "5432";
-$dbname = getenv('DB_NAME') ?: "sistema_nomina";
-$user = getenv('DB_USER') ?: "postgres";
-$password = getenv('DB_PASSWORD') ?: "123456789";
+// Intenta leer de variable de entorno DATABASE_URL (Render/Neon standard)
+$database_url = getenv("DATABASE_URL");
+
+if ($database_url) {
+    $url = parse_url($database_url);
+    $host = $url["host"];
+    $port = $url["port"] ?? 5432;
+    $user = $url["user"];
+    $password = $url["pass"];
+    $dbname = ltrim($url["path"], "/");
+} else {
+    // Si no hay DATABASE_URL, busca variables individuales
+    $host = getenv('DB_HOST') ?: "localhost";
+    $port = getenv('DB_PORT') ?: "5432";
+    $dbname = getenv('DB_NAME') ?: "sistema_nomina";
+    $user = getenv('DB_USER') ?: "postgres";
+    $password = getenv('DB_PASSWORD') ?: "123456789";
+}
 
 try {
     $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
