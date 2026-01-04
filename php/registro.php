@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $observaciones = $_POST['observaciones'];
 
     // Preparar la consulta SQL (Usamos parámetros para evitar SQL Injection)
-    $sql = "INSERT INTO registro (nombres, apellidos, cedula, cargo, fecha_ingreso, direccion, telefono, observaciones) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO registro (nombres, apellidos, cedula, cargo, fecha_ingreso, direccion, telefono, observaciones, salario_diario, valor_hora_extra) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Ejecutar la consulta usando PDO
     // Ejecutar la consulta usando PDO
@@ -29,7 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $fecha_ingreso, 
             $direccion, 
             $telefono, 
-            $observaciones
+            $observaciones,
+            $_POST['salario_diario'],
+            $_POST['valor_hora_extra']
         ));
 
         // Si llega aquí es porque no hubo excepción

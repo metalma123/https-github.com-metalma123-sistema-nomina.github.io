@@ -36,8 +36,12 @@ if (!isset($_SESSION['usuario_id'])) {
                 <button onclick="location.href='eliminar.php'" class="btn-delete">Eliminar</button>
             </div>
             <div class="tarjeta">
-                <h3>Consulta Trabajadores</h3>
-                <button onclick="location.href='consulta.php'" class="btn-search">Consulta</button>
+                <h3>Control de Asistencia</h3>
+                <button onclick="location.href='asistencia.php'" class="btn-primary">Registrar</button>
+            </div>
+            <div class="tarjeta">
+                <h3>Reporte Semanal</h3>
+                <button onclick="location.href='reporte_asistencia.php'" class="btn-search">Ver Reporte</button>
             </div>
         </div>
 

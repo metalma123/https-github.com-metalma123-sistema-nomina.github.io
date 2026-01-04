@@ -36,11 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $direccion = $_POST['direccion'];
     $telefono = $_POST['telefono'];
 
-    $sql = "UPDATE registro SET nombres=?, apellidos=?, cargo=?, fecha_ingreso=?, direccion=?, telefono=? WHERE id_registro=?";
+    $sql = "UPDATE registro SET nombres=?, apellidos=?, cargo=?, fecha_ingreso=?, direccion=?, telefono=?, salario_diario=?, valor_hora_extra=? WHERE id_registro=?";
     
     try {
         $stmt = $conexion->prepare($sql);
-        $result = $stmt->execute([$nombres, $apellidos, $cargo, $fecha, $direccion, $telefono, $id]);
+        $result = $stmt->execute([$nombres, $apellidos, $cargo, $fecha, $direccion, $telefono, $_POST['salario_diario'], $_POST['valor_hora_extra'], $id]);
 
         if ($result) {
             echo "<script>alert('¡Actualizado con éxito!'); window.location='../html/modificar.php';</script>";

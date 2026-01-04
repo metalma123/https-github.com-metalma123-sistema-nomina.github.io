@@ -1,45 +1,52 @@
 <?php
+/**
+ * ARCHIVO DE DIAGNÓSTICO Y LOGIN
+ * Si ves este texto en el navegador, tu servidor Apache no está procesando PHP correctamente.
+ * Asegúrate de abrir: http://localhost/SistemaNomina/html/index.html
+ */
+
+// 1. Mostrar errores para depuración (solo en desarrollo)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
-/**
- * 1. CONFIGURACIÓN DE CONEXIÓN
- * Usamos el archivo compartido para no repetir código y soportar variables de entorno.
- */
-include 'conexion.php';
-// $conexion ya está disponible desde el include
+// 2. Verificar extensión PDO PostgreSQL
+if (!extension_loaded('pdo_pgsql')) {
+    die("Error: La extensión 'pdo_pgsql' no está habilitada en tu PHP (XAMPP). <br> 
+         Por favor, edita tu archivo php.ini y quita el punto y coma (;) de la línea: <b>extension=pdo_pgsql</b> y reinicia Apache.");
+}
 
-// $conexion ya está disponible desde el include
+require_once 'conexion.php';
 
-try {
-    /**
-     * 2. PROCESAMIENTO DEL FORMULARIO
-     * Usamos 'usuarios' y 'clave' porque así están en tu index.html
-     */
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $usuarioForm = $_POST['usuarios'] ?? '';
-        $claveForm = $_POST['clave'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $usuarioForm = trim($_POST['usuarios'] ?? '');
+    $claveForm = trim($_POST['clave'] ?? '');
 
-        // 3. BUSCAR EL USUARIO
-        // Importante: Verifica si tu columna en Postgres se llama 'username'
+    if (empty($usuarioForm) || empty($claveForm)) {
+        echo "<script>alert('Por favor llene todos los campos'); window.location='../html/index.html';</script>";
+        exit();
+    }
+
+    try {
+        // Usamos la variable $conexion definida en conexion.php
+        if (!isset($conexion)) {
+            die("Error: La variable de conexión no está definida. Revisa php/conexion.php");
+        }
+
         $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE username = :u LIMIT 1");
         $stmt->execute([':u' => $usuarioForm]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            /**
-             * 4. VALIDACIÓN DE CONTRASEÑA
-             * Si usas contraseñas encriptadas (recomendado 2025): password_verify($claveForm, $user['password'])
-             * Si las guardaste como texto plano (para pruebas): $claveForm === $user['password']
-             */
+            // Verificación simple (texto plano o encriptada)
             if ($claveForm === $user['password'] || password_verify($claveForm, $user['password'])) {
                 
-                // Seguridad: Regenerar ID de sesión para prevenir fijación de sesiones
                 session_regenerate_id(true);
-
                 $_SESSION['usuario_id'] = $user['id'];
                 $_SESSION['nombre_usuario'] = $user['username'];
 
-                // REDIRECCIÓN: Salimos de /php/ y entramos a /html/ para buscar menu.php
                 header("Location: ../html/menu.php");
                 exit();
             } else {
@@ -48,10 +55,10 @@ try {
         } else {
             echo "<script>alert('El usuario no existe'); window.location='../html/index.html';</script>";
         }
+    } catch (PDOException $e) {
+        die("Error de base de datos: " . $e->getMessage());
     }
-
-} catch (PDOException $e) {
-    // Si hay error de conexión, lo mostramos
-    die("Error de conexión a la base de datos: " . $e->getMessage());
+} else {
+    header("Location: ../html/index.html");
+    exit();
 }
-?>

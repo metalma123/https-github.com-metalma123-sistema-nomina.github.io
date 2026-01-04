@@ -48,12 +48,20 @@ if (!isset($_SESSION['usuario_id'])) {
                 <textarea id="direccion" name="direccion" rows="3"></textarea>
             </div>
             <div class="form-group">
+                <label for="salario_diario">Salario Diario (USD):</label>
+                <input type="number" step="0.01" id="salario_diario" name="salario_diario" value="0.00" required>
+            </div>
+            <div class="form-group">
+                <label for="valor_hora_extra">Valor Hora Extra (USD):</label>
+                <input type="number" step="0.01" id="valor_hora_extra" name="valor_hora_extra" value="0.00" required>
+            </div>
+            <div class="form-group">
                 <label for="observaciones">Observaciones:</label>
                 <textarea id="observaciones" name="observaciones" rows="3"></textarea>
             </div>
 
             <button type="submit" class="btn-primary">Guardar Registro</button>
-            <button type="button" class="btn-back" onclick="location.href='menu.php'">Volver al Menú</button>
+            <button type="button" class="btn-back" onclick="location.href='menu.php'">Menú</button>
             <button type="button" class="btn-delete" style="margin-top:10px;" onclick="location.href='../php/logout.php'">Cerrar Sesión</button>
         </form>
     </div>

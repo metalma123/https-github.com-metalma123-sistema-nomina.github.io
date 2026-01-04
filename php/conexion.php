@@ -28,8 +28,6 @@ try {
     // Configurar para que lance excepciones en caso de error
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    // En producción, no mostrar detalles del error ($e->getMessage())
-    // die("Error crítico de conexión: " . $e->getMessage()); 
-    die("Lo sentimos, hay un problema de conexión con el sistema. Intente más tarde.");
+    // Mostramos el error real para que el usuario pueda corregirlo (ej: contraseña mal, BD no existe)
+    die("ERROR DE CONEXIÓN: " . $e->getMessage() . "<br><br><b>Sugerencias:</b><br>1. Verifica que PostgreSQL esté encendido.<br>2. Verifica que el usuario 'postgres' y la contraseña coincidan.<br>3. Verifica que la base de datos '$dbname' exista.");
 }
-?>
