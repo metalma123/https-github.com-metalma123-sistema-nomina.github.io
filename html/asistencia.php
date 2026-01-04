@@ -87,6 +87,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 <button type="button" class="btn-primary" style="padding: 12px 20px;" onclick="buscarTrabajador()">Buscar</button>
                 <button type="button" class="btn-clear" style="padding: 12px 20px;" onclick="limpiarFormulario()">Limpiar</button>
                 <button type="button" class="btn-back" style="padding: 12px 20px;" onclick="location.href='menu.php'">Menú</button>
+                <button type="button" class="btn-delete" style="padding: 12px 20px;" onclick="location.href='../php/logout.php'">Cerrar Sesión</button>
             </div>
         </div>
 
@@ -168,6 +169,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button type="submit" class="btn-primary">Guardar Asistencia</button>
                 <button type="button" class="btn-back" onclick="location.href='menu.php'">Menú</button>
+                <button type="button" class="btn-delete" onclick="location.href='../php/logout.php'">Cerrar Sesión</button>
             </div>
         </form>
     </div>

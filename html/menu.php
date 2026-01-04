@@ -43,6 +43,10 @@ if (!isset($_SESSION['usuario_id'])) {
                 <h3>Reporte Semanal</h3>
                 <button onclick="location.href='reporte_asistencia.php'" class="btn-search">Ver Reporte</button>
             </div>
+            <div class="tarjeta">
+                <h3>Consulta de Recibos</h3>
+                <button onclick="location.href='consulta_recibos.php'" class="btn-modificar">Consultar</button>
+            </div>
         </div>
 
         <div style="text-align: center; margin-top: 20px;">

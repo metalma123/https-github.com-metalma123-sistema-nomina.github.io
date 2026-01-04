@@ -72,18 +72,47 @@ if (!isset($_SESSION['usuario_id'])) {
             font-weight: bold;
         }
         @media print {
-            .btn-primary, .btn-back, .filter-container { display: none; }
-            body { background: white; color: black; margin: 0; padding: 0; }
-            .report-header { border: 1px solid #eee; margin-bottom: 10px; padding: 10px; }
-            table { background: white; color: black; border: 1px solid #ccc; width: 100%; font-size: 10px; }
-            th, td { border: 1px solid #ccc; color: black; padding: 4px; }
-            @page { size: landscape; margin: 0.5cm; }
-            .form-container, .container, div[style*="max-width"] { max-width: none !important; width: 100% !important; }
+            .filter-container, .no-print, .btn-group { display: none !important; }
+            body { 
+                background: white !important; 
+                color: black !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                display: block !important; /* Quitar flex que centra verticalmente */
+                min-height: auto !important;
+            }
+            /* Quitar márgenes externos del contenedor principal */
+            #main-container { 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                max-width: none !important; 
+                width: 100% !important; 
+            }
+            .report-header { 
+                border: 1px solid #ccc; 
+                margin: 0 0 10px 0 !important; 
+                padding: 10px !important; 
+                display: flex !important; 
+                background: white !important;
+            }
+            .logo-placeholder { width: 60px !important; height: 60px !important; }
+            .company-info h1 { font-size: 1.4em !important; }
+            table { 
+                background: white !important; 
+                color: black !important; 
+                border: 1px solid #000; 
+                width: 100%; 
+                font-size: 10px; 
+                margin-top: 5px; 
+                border-collapse: collapse;
+            }
+            th, td { border: 1px solid #000; color: black; padding: 4px; }
+            @page { size: landscape; margin: 1cm !important; }
         }
     </style>
 </head>
 <body>
-    <div style="width: 100%; max-width: 1200px; margin: auto; padding: 20px;">
+    <div id="main-container" style="width: 100%; max-width: 1200px; margin: auto; padding: 20px;">
         
         <div class="report-header">
             <div class="logo-placeholder">LOGO AQUÍ</div>
@@ -106,10 +135,14 @@ if (!isset($_SESSION['usuario_id'])) {
                 <label style="color: white; display: block; margin-bottom: 5px;">Filtrar por Cédula:</label>
                 <input type="text" id="filtro_cedula" placeholder="Opcional" onkeyup="cargarReporte()">
             </div>
-            <div class="filter-item" style="display: flex; align-items: flex-end; gap: 10px;">
-                <button class="btn-primary" style="flex: 1; min-width: 120px; height: 45px;" onclick="window.print()">Imprimir</button>
-                <button class="btn-clear" style="flex: 1; min-width: 120px; height: 45px;" onclick="limpiarReporte()">Limpiar</button>
-                <button class="btn-back" style="flex: 1; min-width: 120px; height: 45px;" onclick="location.href='menu.php'">Menú</button>
+            <div class="filter-item" style="flex: 2; min-width: 300px;">
+                <label style="visibility: hidden;">Botones:</label> <!-- Placeholder para alinear flex -->
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-primary" style="width: auto; height: 45px; padding: 0 20px;" onclick="window.print()">Imprimir</button>
+                    <button class="btn-clear" style="width: auto; height: 45px; padding: 0 20px;" onclick="limpiarReporte()">Limpiar</button>
+                    <button class="btn-back" style="width: auto; height: 45px; padding: 0 20px;" onclick="location.href='menu.php'">Menú</button>
+                    <button class="btn-delete" style="width: auto; height: 45px; padding: 0 20px;" onclick="location.href='../php/logout.php'">Cerrar Sesión</button>
+                </div>
             </div>
         </div>
 
