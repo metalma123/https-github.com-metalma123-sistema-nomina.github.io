@@ -1,0 +1,10 @@
+<?php
+// Copia este archivo como config.local.php y ajusta tus credenciales locales
+// NO SUBA ESTE ARCHIVO AL REPOSITORIO (está incluido en .gitignore)
+
+$db_host = "localhost";
+$db_port = "5432";
+$db_name = "sistema_nomina";
+$db_user = "postgres";
+$db_pass = "123456789";
+?>

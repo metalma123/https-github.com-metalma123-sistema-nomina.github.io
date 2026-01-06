@@ -1,14 +1,12 @@
 <?php
-include 'conexion.php'; // Asegúrate de que $conexion esté definida aquí
+include 'auth.php';
+include 'utils.php';
+include 'conexion.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST['id_registro'];
-    $cedula = $_POST['cedula'];
-
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibimos los datos del formulario
-    $id = $_POST['id_registro'] ?? '';
-    $cedula = $_POST['cedula'] ?? '';
+    // Recibimos y sanitizamos los datos del formulario
+    $id = sanitize($_POST['id_registro'] ?? '');
+    $cedula = sanitize($_POST['cedula'] ?? '');
 
     if (!empty($id)) {
         try {
@@ -35,6 +33,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             window.history.back();
         </script>";
     }
-}
 }
 ?>

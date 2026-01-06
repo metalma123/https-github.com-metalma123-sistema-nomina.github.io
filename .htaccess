@@ -1,0 +1,15 @@
+# Prevenir listado de directorios
+Options -Indexes
+
+# Proteger archivos sensibles
+<FilesMatch "^\.|\.(sql|env|bak|local\.php|example)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Asegurar que index.php sea el archivo por defecto
+DirectoryIndex index.php index.html
+
+# Manejo de errores amigable (opcional, configurar según hosting)
+# ErrorDocument 404 /404.html
+# ErrorDocument 403 /403.html

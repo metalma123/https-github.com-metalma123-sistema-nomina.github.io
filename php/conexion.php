@@ -1,6 +1,12 @@
 <?php
 // Configuración de la base de datos
-// Intenta leer de variable de entorno DATABASE_URL (Render/Neon standard)
+// 1. Intentar cargar configuración local si existe (para desarrollo)
+$config_local = __DIR__ . '/config.local.php';
+if (file_exists($config_local)) {
+    include $config_local;
+}
+
+// 2. Intenta leer de variable de entorno DATABASE_URL (Render/Neon standard)
 $database_url = getenv("DATABASE_URL");
 
 if ($database_url) {
@@ -10,16 +16,16 @@ if ($database_url) {
 if (isset($url) && is_array($url) && isset($url["host"])) {
     $host = $url["host"];
     $port = $url["port"] ?? 5432;
-    $user = $url["user"] ?? "postgres"; // Fallback por si acaso
-    $password = $url["pass"] ?? "";     // Fallback por si acaso
+    $user = $url["user"] ?? "postgres";
+    $password = $url["pass"] ?? "";
     $dbname = ltrim($url["path"] ?? "/sistema_nomina", "/");
 } else {
-    // Si no hay DATABASE_URL, busca variables individuales
-    $host = getenv('DB_HOST') ?: "localhost";
-    $port = getenv('DB_PORT') ?: "5432";
-    $dbname = getenv('DB_NAME') ?: "sistema_nomina";
-    $user = getenv('DB_USER') ?: "postgres";
-    $password = getenv('DB_PASSWORD') ?: "123456789";
+    // Si no hay DATABASE_URL, usa variables individuales o fallbacks seguros
+    $host = getenv('DB_HOST') ?: ($db_host ?? "localhost");
+    $port = getenv('DB_PORT') ?: ($db_port ?? "5432");
+    $dbname = getenv('DB_NAME') ?: ($db_name ?? "sistema_nomina");
+    $user = getenv('DB_USER') ?: ($db_user ?? "postgres");
+    $password = getenv('DB_PASSWORD') ?: ($db_pass ?? "123456789");
 }
 
 try {

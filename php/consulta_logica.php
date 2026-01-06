@@ -1,8 +1,7 @@
 <?php
-// consulta_logica.php
-
-// Incluir el archivo de conexión PDO. Ahora expone $conexion.
-include('conexion.php'); 
+include 'auth.php';
+include 'utils.php';
+include 'conexion.php'; 
 
 $resultados_html = "";
 $trabajador_nombre = "";
@@ -44,18 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && (isset($_POST['cedula']) || isset($_
                 
                 foreach ($resultados as $row) {
                     $fecha_formateada = date('d/m/Y', strtotime($row['fecha_registro']));
-                    $usd_format = number_format($row['total_usd'], 2);
-                    $bs_format = number_format($row['total_bs'], 2);
+                    $usd_format = e(number_format($row['total_usd'], 2));
+                    $bs_format = e(number_format($row['total_bs'], 2));
                     
                     $datos_json = json_encode($row);
 
                     // Escapar los datos JSON para que sean seguros dentro del atributo HTML onclick
-                    $datos_json_seguro = htmlspecialchars($datos_json, ENT_QUOTES, 'UTF-8');
+                    $datos_json_seguro = e($datos_json);
 
                     $resultados_html .= "
                         <tr>
-                            <td>" . htmlspecialchars($row['id_recibo']) . "</td>
-                            <td>{$fecha_formateada}</td>
+                            <td>" . e($row['id_recibo']) . "</td>
+                            <td>" . e($fecha_formateada) . "</td>
                             <td>{$usd_format} $</td>
                             <td>{$bs_format} Bs</td>
                             <td class='no-print'>

@@ -1,13 +1,9 @@
 <?php
-session_start();
+require_once 'auth.php';
+require_once 'utils.php';
 require_once 'conexion.php';
 
-if (!isset($_SESSION['usuario_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Sesión no iniciada']);
-    exit();
-}
-
-$action = $_GET['action'] ?? '';
+$action = sanitize($_GET['action'] ?? '');
 
 if ($action === 'guardar') {
     $cedula = $_POST['cedula'] ?? '';

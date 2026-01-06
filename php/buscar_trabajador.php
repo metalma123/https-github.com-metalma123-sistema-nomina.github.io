@@ -1,11 +1,13 @@
 <?php
+include 'auth.php';
+include 'utils.php';
 include 'conexion.php'; // Tu archivo de conexión con PDO
 
 // Evita que errores de PHP se mezclen con el JSON
 error_reporting(0); 
 header('Content-Type: application/json');
 
-$cedula = $_GET['cedula'] ?? '';
+$cedula = sanitize($_GET['cedula'] ?? '');
 
 if (empty($cedula)) {
     echo json_encode(['error' => 'Por favor ingrese una cédula']);

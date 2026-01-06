@@ -1,9 +1,11 @@
 <?php
+include 'auth.php';
+include 'utils.php';
 include 'conexion.php';
 header('Content-Type: application/json');
 
-$cedula = $_GET['cedula'] ?? '';
-$id_recibo = $_GET['id_recibo'] ?? '';
+$cedula = sanitize($_GET['cedula'] ?? '');
+$id_recibo = sanitize($_GET['id_recibo'] ?? '');
 
 try {
     if (!empty($cedula)) {

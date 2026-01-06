@@ -1,17 +1,20 @@
 <?php
-// Incluimos tu archivo de conexión existente
+include 'auth.php';
+include 'utils.php';
 include 'conexion.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir datos del formulario
-    $nombres = $_POST['nombres'];
-    $apellidos = $_POST['apellidos'];
-    $cedula = $_POST['cedula'];
-    $cargo = $_POST['cargo'];
-    $fecha_ingreso = $_POST['fecha_ingreso'];
-    $direccion = $_POST['direccion'];
-    $telefono = $_POST['telefono'];
-    $observaciones = $_POST['observaciones'];
+    // Recibir y sanitizar datos del formulario
+    $nombres = sanitize($_POST['nombres']);
+    $apellidos = sanitize($_POST['apellidos']);
+    $cedula = sanitize($_POST['cedula']);
+    $cargo = sanitize($_POST['cargo']);
+    $fecha_ingreso = sanitize($_POST['fecha_ingreso']);
+    $direccion = sanitize($_POST['direccion']);
+    $telefono = sanitize($_POST['telefono']);
+    $observaciones = sanitize($_POST['observaciones']);
+    $salario_diario = sanitize($_POST['salario_diario'] ?? 0);
+    $valor_hora_extra = sanitize($_POST['valor_hora_extra'] ?? 0);
 
     // Preparar la consulta SQL (Usamos parámetros para evitar SQL Injection)
     $sql = "INSERT INTO registro (nombres, apellidos, cedula, cargo, fecha_ingreso, direccion, telefono, observaciones, salario_diario, valor_hora_extra) 

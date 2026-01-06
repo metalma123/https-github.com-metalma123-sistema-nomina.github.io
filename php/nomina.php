@@ -1,8 +1,7 @@
 <?php
-
-
-// auto recivo 
-include '../php/conexion.php';
+include 'auth.php';
+include 'utils.php';
+include 'conexion.php';
 try {
     $stmt = $conexion->query("SELECT MAX(id_recibo) as max_id FROM nomina");
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
